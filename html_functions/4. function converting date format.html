@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Date Converter</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        max-width: 400px;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        color: blue;
+        background-color: white;
+        border: 2px solid grey;
+        border-radius: 5px;
+        box-sizing: border-box;
+        outline: none;
+    }
+    input[type=text]:focus {
+        border: 3px solid blue;
+        font-size: medium;
+        font-weight: 700;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 20px;
+        background-color: #007bff;
+        border: 3px solid blue;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    .output {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 18px;
+        color: #007bff;
+        font-weight: bold;
+    }
+    .error {
+        color: #ff0000;
+        margin-top: 5px;
+        font-size: 14px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Date Converter</h1>
+    <input type="text" id="inputDate" placeholder="Input Date (DD/MM/YYYY)">
+    <input type="text" id="inputFormat" placeholder="Input Format (e.g., DD/MM/YYYY)">
+    <input type="text" id="expectedFormat" placeholder="Expected Format (e.g., MM/YYYY/DD)">
+    <button onclick="convertDate()">Convert</button>
+    <div class="output" id="output"></div>
+    <div class="error" id="error"></div>
+</div>
+
+<script>
+    function convertDate() {
+        var inputDate = document.getElementById('inputDate').value;
+        var inputFormat = document.getElementById('inputFormat').value;
+        var expectedFormat = document.getElementById('expectedFormat').value;
+
+        // Check if any input field is empty
+        if (!inputDate || !inputFormat || !expectedFormat) {
+            document.getElementById('error').innerText = "Please fill in all fields.";
+            return;
+        } else {
+            document.getElementById('error').innerText = "";
+        }
+
+        var parts = inputDate.split('/');
+        var dateFormat = inputFormat.split('/');
+        var outputFormat = expectedFormat.split('/');
+
+        var dateObject = {
+            'DD': parts[dateFormat.indexOf('DD')],
+            'MM': parts[dateFormat.indexOf('MM')],
+            'YYYY': parts[dateFormat.indexOf('YYYY')]
+        };
+
+        var outputDate = outputFormat.map(function (format) {
+            return dateObject[format];
+        }).join('/');
+
+        document.getElementById('output').innerText = outputDate;
+    }
+</script>
+</body>
+</html>
